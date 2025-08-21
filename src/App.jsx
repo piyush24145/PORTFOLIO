@@ -4,7 +4,7 @@ import React from "react";
 import Expertise from "./Skills/Expertise";
 import Projects from "./projects/Projects";
 import Contacts from "./contact/Contacts";
-import Achivements from "./acquire/achivements";
+import Achievements from "./acquire/Achievements";
 
 export default function App() {
   return (
@@ -18,7 +18,7 @@ export default function App() {
         <Projects/>
       </div>
       <div id="achivements">
-        <Achivements/>
+        <Achievements/>
       </div>
       <div id="contact">
         <Contacts/>
