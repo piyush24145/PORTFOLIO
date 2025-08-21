@@ -1,0 +1,22 @@
+@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: 200%;            /* double width for 2 copies */
+  animation: marquee 20s linear infinite;  /* 20s slow speed */
+}
+html {
+  scroll-behavior: smooth;
+}
