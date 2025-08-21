@@ -3,8 +3,8 @@ import Homepage from "./Homepage/Homepage";
 import React from "react";
 import Expertise from "./Skills/Expertise";
 import Projects from "./projects/Projects";
-import Achivements from "./acquire/achivements";
 import Contacts from "./contact/Contacts";
+import Achivements from "./acquire/achivements";
 
 export default function App() {
   return (
