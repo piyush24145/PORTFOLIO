@@ -25,7 +25,7 @@ const achievements = [
   },
 ];
 
-export default function Achievements() {
+export default function Achivements() {
   return (
     <section className="px-6 md:px-16 py-20 bg-[#050517] text-white">
       {/* Heading */}
