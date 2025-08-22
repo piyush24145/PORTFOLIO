@@ -40,7 +40,7 @@ export default function Hero() {
       <div className="mt-10 md:mt-0 md:absolute md:top-0 md:left-1/2 lg:left-2/3 z-0 flex flex-col items-center md:block">
         <div className="flex items-center space-x-4">
           <img
-            src="/piyushkumar1.jpeg" 
+            src="/10b2ae04-14c9-486f-b19c-ea968aa03ab4.jpg" 
             alt="profile"
             className="w-56 md:w-[350px] lg:w-[400px] object-cover drop-shadow-2xl"
           />

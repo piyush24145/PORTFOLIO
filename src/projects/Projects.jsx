@@ -11,18 +11,18 @@ const ProjectsData = [
     github: "#",
   },
   {
-    title: "ECOMMERCE",
+    title: "UrbanEdge Eccom",
     description:
       "A second brain app to manage all your notes, tweets, videos, documents, and links in one place.",
-    image: "/Screenshot 2025-08-21 000726.png",
+    image: "/Screenshot 2025-08-22 223733.png",
     demo: "#",
     github: "#",
   },
   {
     title: "Gyan-mitra",
     description:
-      "A food ordering webapp built using ReactJS and styled using TailwindCSS. Uses location to show nearest restaurant using Swiggy's API.",
-    image: "\ef33445a-293f-43ba-ae1f-fe82c2656528-cover.png",
+      "A chat with Ai webapp built using javascript ,html and css. connected gemmini Api for getting response.",
+    image: "/Screenshot 2025-08-22 225122.png",
     demo: "#",
     github: "#",
   },
