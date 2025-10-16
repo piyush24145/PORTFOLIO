@@ -1,27 +1,28 @@
 import React from "react";
 
 const achievements = [
-  {
-    title: "LeetCode",
-    description: "undefined",
-    icon: "🏆",
-  },
-  {
-    title: "CodeChef",
-    description: "undefined",
-    icon: "",
-  },
+{
+  title: "Unstop",
+  description: "crack 1st round in unstop talent park(700th rank)",
+  icon: "🎯",
+},
+  // {
+  //   title: "LeetCode",
+  //   description: "undefined",
+  //   icon: "🏆",
+  // },
+
   {
     title: "FORCE IIITU",
     description:
-      "undefined",
+      "Volanteer member",
     icon: "🧑‍💼",
   },
   {
-    title: "HacktoberFest 2024",
+    title: "SIH",
     description:
       "undefined",
-    icon: "🌐",
+    icon: "💡",
   },
 ];
 

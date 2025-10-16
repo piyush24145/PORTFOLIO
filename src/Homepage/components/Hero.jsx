@@ -13,7 +13,7 @@ export default function Hero() {
 
 
       {/* Text */}
-      <div className="max-w-lg z-10 text-center md:text-left mt-10"> {/* 👈 yaha thoda neeche kar diya */}
+      <div className="max-w-lg z-10 text-center md:text-left mt-10"> 
         <h2 className="text-purple-700 tracking-widest font-bold text-2xl md:text-3xl mb-4">
           PIYUSH KUMAR
         </h2>
@@ -37,17 +37,17 @@ export default function Hero() {
       </div>
 
       {/* Image + Mobile CV Button */}
-      <div className="mt-10 md:mt-0 md:absolute md:top-0 md:left-1/2 lg:left-2/3 z-0 flex flex-col items-center md:block">
+      <div className="mt-10 md:mt-0 md:absolute md:top-0 md:left-1/2 lg:left-1/2 z-0 flex flex-col items-center md:block">
         <div className="flex items-center space-x-4">
           <img
-            src="/10b2ae04-14c9-486f-b19c-ea968aa03ab4.jpg" 
+            src="/49368756-613f-4bcd-b304-73659960c5fb.png" 
             alt="profile"
             className="w-56 md:w-[350px] lg:w-[400px] object-cover drop-shadow-2xl"
           />
           
           {/* 👇 Ye button sirf mobile view me dikhega */}
           <a
-            href="#"
+            href="https://drive.google.com/file/d/1PTKmKoSZYlVGaITxUJcqQ_v4SPluKTHo/view?usp=drive_link"
             className="block md:hidden px-4 py-2 rounded-full border border-purple-400 hover:bg-purple-600/20 transition text-white text-sm"
           >
             View CV

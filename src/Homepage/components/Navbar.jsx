@@ -53,7 +53,7 @@ export default function Navbar() {
         </ul>
 <div className="flex items-center space-x-4">
 <a
-  href="https://linkedin.com"
+  href="https://www.linkedin.com/in/piyush-kumar-b071132a4/"
   target="_blank"
   rel="noreferrer"
   className="hover:scale-110 transition flex items-center justify-center w-10 h-10 rounded-md bg-[#0A66C2]"
@@ -64,7 +64,7 @@ export default function Navbar() {
 
 
 <a
-  href="https://github.com"
+  href="https://github.com/piyush24145"
   target="_blank"
   rel="noreferrer"
   className="hover:scale-90 transition"
@@ -83,7 +83,7 @@ export default function Navbar() {
   {/* CV button only on desktop */}
   <a
   
-    href="#"
+    href="https://drive.google.com/file/d/1md0QKuhNCXEb5okYroNlg0-YcjNU-eZb/view?usp=drive_link"
     className="hidden md:block px-4 py-2 rounded-full border border-purple-400 hover:bg-purple-600/20 transition"
   >
     View CV

@@ -6,25 +6,25 @@ const ProjectsData = [
     title: "Khoja kya",
     description:
       "  Khoja Kya is a community-driven platform designed to help individuals report and reclaim lost items.Our platform includes user-friendly features for reporting items, verifying ownership, and managing user profiles.",
-    image: "/Screenshot 2025-08-20 223650.png",
-    demo: "#",
-    github: "#",
+    image: "/Screenshot 2025-09-04 180136 copy.png",
+    demo: "https://lost-found-fronted.vercel.app/",
+    github: "https://github.com/piyush24145",
   },
   {
     title: "UrbanEdge Eccom",
     description:
-      "A second brain app to manage all your notes, tweets, videos, documents, and links in one place.",
+      "Built a full-stack MERN e-commerce application with secure payments (Stripe), product management, and admin dashboard. Implemented order tracking, authentication, and responsive UI for smooth user experience.",
     image: "/Screenshot 2025-08-22 223733.png",
-    demo: "#",
-    github: "#",
+    demo: "https://e-commerce-fronted-lkff.vercel.app/",
+    github: "https://github.com/piyush24145",
   },
   {
     title: "Gyan-mitra",
     description:
       "A chat with Ai webapp built using javascript ,html and css. connected gemmini Api for getting response.",
-    image: "/Screenshot 2025-08-22 225122.png",
+    image: "/Screenshot 2025-09-04 211037 copy.png",
     demo: "#",
-    github: "#",
+    github: "https://github.com/piyush24145/Gyan-mitra",
   },
 ];
 export default function Projects() {

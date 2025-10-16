@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FaReact, FaNodeJs, FaCss3Alt, FaHtml5, FaJs, FaGithub, FaGit, FaAws } from "react-icons/fa";
-import { SiCplusplus, SiRedux, SiTailwindcss, SiBootstrap, SiExpress, SiMongodb, SiPrisma, SiSocketdotio, SiFirebase } from "react-icons/si";
+import { SiCplusplus, SiRedux, SiTailwindcss, SiBootstrap, SiExpress, SiMongodb, SiPrisma, SiSocketdotio, SiFirebase, SiStripe, SiPostman, SiFramer } from "react-icons/si";
 
 export default function Expertise() {
   const skills = [
@@ -12,13 +12,13 @@ export default function Expertise() {
     { name: "React.js", icon: <FaReact size={40} /> },
     { name: "Redux", icon: <SiRedux size={40} /> },
     { name: "Tailwind CSS", icon: <SiTailwindcss size={40} /> },
-    { name: "Bootstrap", icon: <SiBootstrap size={40} /> },
+    { name: "MongoDB", icon: <SiMongodb  size={40} /> },
     { name: "Node.js", icon: <FaNodeJs size={40} /> },
     { name: "Express.js", icon: <SiExpress size={40} /> },
     { name: "RESTful APIs", icon: <SiExpress size={40} /> },
-    { name: "Socket.io", icon: <SiSocketdotio size={40} /> },
-    { name: "MongoDB", icon: <SiMongodb size={40} /> },
-    { name: "Prisma ORM", icon: <SiPrisma size={40} /> },
+    { name: "Postman", icon: <SiPostman size={40} /> },
+    { name: "Stripe", icon: <SiStripe size={40} /> },
+    { name: "Framermotion", icon: <SiFramer size={40} /> },
     { name: "Git", icon: <FaGit size={40} /> },
     { name: "GitHub", icon: <FaGithub size={40} /> },
     { name: "Firebase", icon: <SiFirebase size={40} /> },
