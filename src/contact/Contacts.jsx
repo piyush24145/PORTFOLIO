@@ -1,6 +1,6 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { Mail } from "lucide-react";
-import ReCAPTCHA from "react-google-recaptcha";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 
 export default function Contacts() {
   const [form, setForm] = useState({
@@ -8,8 +8,8 @@ export default function Contacts() {
     email: "",
     message: "",
   });
-  const [token, setToken] = useState("");
-  const recaptchaRef = useRef(null);
+
+  const { executeRecaptcha } = useGoogleReCaptcha();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -18,12 +18,15 @@ export default function Contacts() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!token) {
-      alert("Please verify reCAPTCHA!");
+    if (!executeRecaptcha) {
+      alert("reCAPTCHA not ready");
       return;
     }
 
     try {
+      // ===== generate token (v3) =====
+      const token = await executeRecaptcha("contact_form");
+
       const res = await fetch(
         `${import.meta.env.VITE_API_URL}/send-email`,
         {
@@ -38,8 +41,6 @@ export default function Contacts() {
 
       if (data.success) {
         setForm({ name: "", email: "", message: "" });
-        setToken("");
-        recaptchaRef.current.reset();
       }
     } catch (err) {
       console.error(err);
@@ -50,7 +51,7 @@ export default function Contacts() {
   return (
     <section className="px-6 md:px-16 py-20 bg-[#0b0b1a] text-white">
       <div className="grid md:grid-cols-2 gap-12 items-center">
-        
+
         {/* LEFT */}
         <div>
           <h2 className="text-5xl font-bold mb-6 leading-tight">
@@ -101,12 +102,7 @@ export default function Contacts() {
               className="w-full p-4 rounded-lg bg-[#0f0f20] border border-gray-700"
             />
 
-            {/* reCAPTCHA v2 CHECKBOX */}
-            <ReCAPTCHA
-              ref={recaptchaRef}
-              sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
-              onChange={(value) => setToken(value)}
-            />
+            {/* reCAPTCHA v3 — no checkbox */}
 
             <button
               type="submit"
@@ -121,4 +117,5 @@ export default function Contacts() {
     </section>
   );
 }
+
 
