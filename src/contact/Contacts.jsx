@@ -5,7 +5,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 export default function Contacts() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [token, setToken] = useState("");
-  const recaptchaRef = useRef(); 
+  const recaptchaRef = useRef();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -20,7 +20,7 @@ export default function Contacts() {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/send-email", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/send-email`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...form, token }),
@@ -32,7 +32,7 @@ export default function Contacts() {
       if (data.success) {
         setForm({ name: "", email: "", message: "" });
         setToken("");
-        recaptchaRef.current.reset(); 
+        recaptchaRef.current.reset();
       }
     } catch (err) {
       console.error(err);
@@ -43,7 +43,7 @@ export default function Contacts() {
   return (
     <section className="px-6 md:px-16 py-20 bg-[#0b0b1a] text-white">
       <div className="grid md:grid-cols-2 gap-12 items-center">
-        {/* Left Side */}
+        {/* Left */}
         <div>
           <h2 className="text-5xl font-bold mb-6 leading-tight">
             Let's Work <br /> Together
@@ -52,11 +52,12 @@ export default function Contacts() {
             <h3 className="text-lg font-semibold text-yellow-400 mb-2">Mail</h3>
             <div className="flex items-center gap-3 text-gray-300">
               <Mail className="text-yellow-400" />
-              <span>piyushkumar04136@gmail.com</span>
+              <span>youremail@gmail.com</span>
             </div>
           </div>
         </div>
 
+        {/* Form */}
         <div className="bg-[#141427] p-8 rounded-2xl shadow-lg">
           <form className="space-y-5" onSubmit={handleSubmit}>
             <input
@@ -87,10 +88,9 @@ export default function Contacts() {
               required
             />
 
-          
             <ReCAPTCHA
               ref={recaptchaRef}
-              sitekey="6LdNor4rAAAAANlFXBLl7NONTX2BdXN-scsWh18z"
+              sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
               onChange={(val) => setToken(val)}
             />
 
