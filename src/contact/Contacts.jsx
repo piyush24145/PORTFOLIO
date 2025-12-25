@@ -3,9 +3,13 @@ import { Mail } from "lucide-react";
 import ReCAPTCHA from "react-google-recaptcha";
 
 export default function Contacts() {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
   const [token, setToken] = useState("");
-  const recaptchaRef = useRef();
+  const recaptchaRef = useRef(null);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -20,11 +24,14 @@ export default function Contacts() {
     }
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/send-email`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, token }),
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/send-email`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ...form, token }),
+        }
+      );
 
       const data = await res.json();
       alert(data.msg);
@@ -43,13 +50,17 @@ export default function Contacts() {
   return (
     <section className="px-6 md:px-16 py-20 bg-[#0b0b1a] text-white">
       <div className="grid md:grid-cols-2 gap-12 items-center">
-        {/* Left */}
+        
+        {/* LEFT */}
         <div>
           <h2 className="text-5xl font-bold mb-6 leading-tight">
             Let's Work <br /> Together
           </h2>
+
           <div className="mt-8">
-            <h3 className="text-lg font-semibold text-yellow-400 mb-2">Mail</h3>
+            <h3 className="text-lg font-semibold text-yellow-400 mb-2">
+              Mail
+            </h3>
             <div className="flex items-center gap-3 text-gray-300">
               <Mail className="text-yellow-400" />
               <span>youremail@gmail.com</span>
@@ -57,7 +68,7 @@ export default function Contacts() {
           </div>
         </div>
 
-        {/* Form */}
+        {/* FORM */}
         <div className="bg-[#141427] p-8 rounded-2xl shadow-lg">
           <form className="space-y-5" onSubmit={handleSubmit}>
             <input
@@ -66,42 +77,46 @@ export default function Contacts() {
               placeholder="Enter your Name"
               value={form.name}
               onChange={handleChange}
-              className="w-full p-4 rounded-lg bg-[#0f0f20] border border-gray-700 text-gray-200 placeholder-gray-500 focus:outline-none focus:border-yellow-400"
               required
+              className="w-full p-4 rounded-lg bg-[#0f0f20] border border-gray-700"
             />
+
             <input
               type="email"
               name="email"
               placeholder="Enter your Email"
               value={form.email}
               onChange={handleChange}
-              className="w-full p-4 rounded-lg bg-[#0f0f20] border border-gray-700 text-gray-200 placeholder-gray-500 focus:outline-none focus:border-yellow-400"
               required
-            />
-            <textarea
-              name="message"
-              placeholder="Type your message"
-              rows="5"
-              value={form.message}
-              onChange={handleChange}
-              className="w-full p-4 rounded-lg bg-[#0f0f20] border border-gray-700 text-gray-200 placeholder-gray-500 focus:outline-none focus:border-yellow-400"
-              required
+              className="w-full p-4 rounded-lg bg-[#0f0f20] border border-gray-700"
             />
 
+            <textarea
+              name="message"
+              rows="5"
+              placeholder="Type your message"
+              value={form.message}
+              onChange={handleChange}
+              required
+              className="w-full p-4 rounded-lg bg-[#0f0f20] border border-gray-700"
+            />
+
+            {/* reCAPTCHA v2 CHECKBOX */}
             <ReCAPTCHA
               ref={recaptchaRef}
               sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
-              onChange={(val) => setToken(val)}
+              onChange={(value) => setToken(value)}
             />
 
             <button
               type="submit"
-              className="w-full py-3 rounded-lg bg-yellow-500 text-black font-semibold hover:bg-yellow-600 transition"
+              className="w-full py-3 rounded-lg bg-yellow-500 text-black font-semibold hover:bg-yellow-600"
             >
               Send me a Mail
             </button>
           </form>
         </div>
+
       </div>
     </section>
   );
