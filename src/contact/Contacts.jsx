@@ -1,26 +1,37 @@
-import React, { useState, useRef } from "react";
-import { Mail } from "lucide-react";
-import ReCAPTCHA from "react-google-recaptcha";
+import React, { useState, useEffect } from "react";
 
 export default function Contacts() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [token, setToken] = useState("");
-  const recaptchaRef = useRef();
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+
+  // ===== Load reCAPTCHA script dynamically =====
+  useEffect(() => {
+    const scriptId = "recaptcha-v3-script";
+    if (!document.getElementById(scriptId)) {
+      const script = document.createElement("script");
+      script.id = scriptId;
+      script.src = `https://www.google.com/recaptcha/api.js?render=${import.meta.env.VITE_RECAPTCHA_SITE_KEY}`;
+      script.async = true;
+      document.body.appendChild(script);
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!token) {
-      alert("Please verify reCAPTCHA!");
+    // ===== Generate v3 token =====
+    if (!window.grecaptcha) {
+      alert("reCAPTCHA not loaded yet");
       return;
     }
 
+    const token = await window.grecaptcha.execute(import.meta.env.VITE_RECAPTCHA_SITE_KEY, { action: "contact_form" });
+    setToken(token);
+
     try {
-      const res = await fetch(`${import.meta.VITE_API_URL}/send-email`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/send-email`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...form, token }),
@@ -31,8 +42,6 @@ export default function Contacts() {
 
       if (data.success) {
         setForm({ name: "", email: "", message: "" });
-        setToken("");
-        recaptchaRef.current.reset();
       }
     } catch (err) {
       console.error(err);
@@ -51,7 +60,6 @@ export default function Contacts() {
           <div className="mt-8">
             <h3 className="text-lg font-semibold text-yellow-400 mb-2">Mail</h3>
             <div className="flex items-center gap-3 text-gray-300">
-              <Mail className="text-yellow-400" />
               <span>youremail@gmail.com</span>
             </div>
           </div>
@@ -88,12 +96,6 @@ export default function Contacts() {
               required
             />
 
-            <ReCAPTCHA
-              ref={recaptchaRef}
-              sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
-              onChange={(val) => setToken(val)}
-            />
-
             <button
               type="submit"
               className="w-full py-3 rounded-lg bg-yellow-500 text-black font-semibold hover:bg-yellow-600 transition"
@@ -106,3 +108,4 @@ export default function Contacts() {
     </section>
   );
 }
+
