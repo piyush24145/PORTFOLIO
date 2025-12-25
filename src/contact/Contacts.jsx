@@ -1,34 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef } from "react";
+import { Mail } from "lucide-react";
+import ReCAPTCHA from "react-google-recaptcha";
 
 export default function Contacts() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [token, setToken] = useState("");
+  const recaptchaRef = useRef();
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
-
-  // ===== Load reCAPTCHA script dynamically =====
-  useEffect(() => {
-    const scriptId = "recaptcha-v3-script";
-    if (!document.getElementById(scriptId)) {
-      const script = document.createElement("script");
-      script.id = scriptId;
-      script.src = `https://www.google.com/recaptcha/api.js?render=${import.meta.env.VITE_RECAPTCHA_SITE_KEY}`;
-      script.async = true;
-      document.body.appendChild(script);
-    }
-  }, []);
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // ===== Generate v3 token =====
-    if (!window.grecaptcha) {
-      alert("reCAPTCHA not loaded yet");
+    if (!token) {
+      alert("Please verify reCAPTCHA!");
       return;
     }
-
-    const token = await window.grecaptcha.execute(import.meta.env.VITE_RECAPTCHA_SITE_KEY, { action: "contact_form" });
-    setToken(token);
 
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/send-email`, {
@@ -42,6 +31,8 @@ export default function Contacts() {
 
       if (data.success) {
         setForm({ name: "", email: "", message: "" });
+        setToken("");
+        recaptchaRef.current.reset();
       }
     } catch (err) {
       console.error(err);
@@ -60,6 +51,7 @@ export default function Contacts() {
           <div className="mt-8">
             <h3 className="text-lg font-semibold text-yellow-400 mb-2">Mail</h3>
             <div className="flex items-center gap-3 text-gray-300">
+              <Mail className="text-yellow-400" />
               <span>youremail@gmail.com</span>
             </div>
           </div>
@@ -94,6 +86,12 @@ export default function Contacts() {
               onChange={handleChange}
               className="w-full p-4 rounded-lg bg-[#0f0f20] border border-gray-700 text-gray-200 placeholder-gray-500 focus:outline-none focus:border-yellow-400"
               required
+            />
+
+            <ReCAPTCHA
+              ref={recaptchaRef}
+              sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+              onChange={(val) => setToken(val)}
             />
 
             <button
