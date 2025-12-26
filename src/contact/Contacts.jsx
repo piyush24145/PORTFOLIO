@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Mail } from "lucide-react";
+import { Mail, CheckCircle, XCircle } from "lucide-react";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 
 export default function Contacts() {
@@ -9,6 +9,7 @@ export default function Contacts() {
     message: "",
   });
 
+  const [status, setStatus] = useState({ type: "", msg: "" });
   const { executeRecaptcha } = useGoogleReCaptcha();
 
   const handleChange = (e) => {
@@ -17,34 +18,33 @@ export default function Contacts() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setStatus({ type: "", msg: "" });
 
     if (!executeRecaptcha) {
-      alert("reCAPTCHA not ready");
+      setStatus({ type: "error", msg: "reCAPTCHA not ready" });
       return;
     }
 
     try {
-      // ===== generate token (v3) =====
       const token = await executeRecaptcha("contact_form");
 
-      const res = await fetch(
-        `${import.meta.env.VITE_API_URL}/send-email`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ ...form, token }),
-        }
-      );
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/send-email`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...form, token }),
+      });
 
       const data = await res.json();
-      alert(data.msg);
 
       if (data.success) {
+        setStatus({ type: "success", msg: data.msg });
         setForm({ name: "", email: "", message: "" });
+      } else {
+        setStatus({ type: "error", msg: data.msg });
       }
     } catch (err) {
       console.error(err);
-      alert("Something went wrong. Try again!");
+      setStatus({ type: "error", msg: "Something went wrong. Try again!" });
     }
   };
 
@@ -102,8 +102,7 @@ export default function Contacts() {
               className="w-full p-4 rounded-lg bg-[#0f0f20] border border-gray-700"
             />
 
-            {/* reCAPTCHA v3 — no checkbox */}
-
+            {/* Submit Button */}
             <button
               type="submit"
               className="w-full py-3 rounded-lg bg-yellow-500 text-black font-semibold hover:bg-yellow-600"
@@ -111,11 +110,29 @@ export default function Contacts() {
               Send me a Mail
             </button>
           </form>
-        </div>
 
+          {/* Status Message */}
+          {status.msg && (
+            <div
+              className={`mt-4 flex items-center gap-2 p-3 rounded-lg ${
+                status.type === "success"
+                  ? "bg-green-500/20 text-green-400"
+                  : "bg-red-500/20 text-red-400"
+              }`}
+            >
+              {status.type === "success" ? (
+                <CheckCircle className="w-6 h-6" />
+              ) : (
+                <XCircle className="w-6 h-6" />
+              )}
+              <span>{status.msg}</span>
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );
 }
+
 
 
